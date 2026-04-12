@@ -1,0 +1,14 @@
+{
+    "name": "ortizpedroso/sistemas",
+    "description": "Sistema de pesquisas e relatorios",
+    "require": {
+        "php": ">=8.0"
+    },
+    "authors": [
+        {
+            "name": "Jules",
+            "email": "jules@example.com"
+        }
+    ],
+    "license": ["proprietary"]
+}
