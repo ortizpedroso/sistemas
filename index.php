@@ -20,10 +20,28 @@ include 'includes/header.php';
             
             <div class="card mt-4">
                 <div class="card-body">
-                    <h5 class="card-title">Ações Disponíveis</h5>
+                    <h5 class="card-title">Ações Disponíveis - Denúncias</h5>
                     <div class="d-grid gap-2 d-md-block">
                         <a href="report.php" class="btn btn-primary mb-2">Fazer Nova Denúncia</a>
                         <a href="my_reports.php" class="btn btn-info mb-2">Minhas Denúncias</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Ações Disponíveis - Pesquisas</h5>
+                    <div class="d-grid gap-2 d-md-block">
+                        <a href="create_survey.php" class="btn btn-success mb-2">Criar Nova Pesquisa</a>
+                        <a href="my_surveys.php" class="btn btn-info mb-2 text-white">Minhas Pesquisas</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title">Conta</h5>
+                    <div class="d-grid gap-2 d-md-block">
                         <a href="profile.php" class="btn btn-secondary mb-2">Meu Perfil</a>
                         <?php if ($_SESSION['role'] === 'admin'): ?>
                             <a href="admin/dashboard.php" class="btn btn-warning mb-2">Painel Admin</a>

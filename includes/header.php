@@ -32,6 +32,12 @@
                             <a class="nav-link" href="my_reports.php">Minhas Denúncias</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="create_survey.php">Criar Pesquisa</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="my_surveys.php">Minhas Pesquisas</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="profile.php">Perfil</a>
                         </li>
                         <?php if ($_SESSION['role'] === 'admin'): ?>
