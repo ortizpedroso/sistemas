@@ -44,6 +44,58 @@ try {
     $pdo->exec($sqlReports);
     echo "Tabela 'reports' criada com sucesso!<br>";
     
+    // SQL para criar tabela de pesquisas/formulários
+    $sqlSurveys = "CREATE TABLE IF NOT EXISTS surveys (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        user_id INT NOT NULL,
+        title VARCHAR(255) NOT NULL,
+        description TEXT,
+        uuid VARCHAR(36) UNIQUE NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+        FOREIGN KEY (user_id) REFERENCES users(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlSurveys);
+    echo "Tabela 'surveys' criada com sucesso!<br>";
+
+    // SQL para criar campos das pesquisas
+    $sqlSurveyFields = "CREATE TABLE IF NOT EXISTS survey_fields (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        survey_id INT NOT NULL,
+        field_type ENUM('text', 'textarea', 'radio', 'checkbox', 'select') NOT NULL,
+        label VARCHAR(255) NOT NULL,
+        options TEXT, -- JSON format for options
+        field_order INT DEFAULT 0,
+        is_required BOOLEAN DEFAULT FALSE,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (survey_id) REFERENCES surveys(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlSurveyFields);
+    echo "Tabela 'survey_fields' criada com sucesso!<br>";
+
+    // SQL para respostas (metadados da submissão)
+    $sqlSurveyResponses = "CREATE TABLE IF NOT EXISTS survey_responses (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        survey_id INT NOT NULL,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (survey_id) REFERENCES surveys(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlSurveyResponses);
+    echo "Tabela 'survey_responses' criada com sucesso!<br>";
+
+    // SQL para respostas individuais
+    $sqlSurveyAnswers = "CREATE TABLE IF NOT EXISTS survey_answers (
+        id INT AUTO_INCREMENT PRIMARY KEY,
+        response_id INT NOT NULL,
+        field_id INT NOT NULL,
+        answer_text TEXT,
+        created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+        FOREIGN KEY (response_id) REFERENCES survey_responses(id) ON DELETE CASCADE,
+        FOREIGN KEY (field_id) REFERENCES survey_fields(id) ON DELETE CASCADE
+    )";
+    $pdo->exec($sqlSurveyAnswers);
+    echo "Tabela 'survey_answers' criada com sucesso!<br>";
+
     // Criar usuário admin padrão se não existir
     $checkAdmin = $pdo->query("SELECT id FROM users WHERE email = 'admin@admin.com'");
     if ($checkAdmin->rowCount() == 0) {

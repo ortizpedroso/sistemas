@@ -27,4 +27,4 @@ build/
 *.o
 *.obj
 *.out
-```
+```/vendor/
